@@ -4841,7 +4841,7 @@ a {
 }
 
 .kud-Footer-listItem::before {
-  content: "×";
+  content: "•";
   display: inline-block;
   margin-right: 20px;
   margin-right: 2rem;
@@ -5071,8 +5071,8 @@ html.posts .kud-Wrapper {
   font-size: 1.6rem;
   display: block;
   text-align: center;
-  margin-bottom: 30px;
-  margin-bottom: 3rem;
+  margin-bottom: 80px;
+  margin-bottom: 8rem;
 }
 
 /** content */
@@ -5082,17 +5082,7 @@ html.posts .kud-Wrapper {
   margin-bottom: 20rem;
 }
 
-.kud-Post-content > p:first-of-type::first-letter {
-  font-weight: 500;
-  float: left;
-  padding-top: 3px;
-  padding-top: 0.3rem;
-  font-size: 25px;
-  font-size: 2.5rem;
-}
-
 .kud-Post-content p {
-  clear: both;
   margin: 30px 0;
   margin: 3rem 0;
   line-height: 1.8;
@@ -5102,6 +5092,8 @@ html.posts .kud-Wrapper {
   display: block;
   border-radius: 4px;
   width: 100%;
+  margin: 80px auto;
+  margin: 8rem auto;
 }
 
 .kud-Post-content iframe {
@@ -5127,8 +5119,8 @@ html.posts .kud-Wrapper {
   position: absolute;
   left: -25px;
   top: 0px;
-  font-size: 7px;
-  font-size: 0.7rem;
+  font-size: 15px;
+  font-size: 1.5rem;
   color: #869d9e;
 }
 
