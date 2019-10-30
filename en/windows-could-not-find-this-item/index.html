@@ -1,0 +1,35 @@
+<!DOCTYPE html><html class="post"><head><meta charset="utf-8"><title>_kud.diary &#x2014; Windows - Could not find this item</title><meta name="description" content="Diary of the _kud"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta property="og:title" content="Windows - Could not find this item"><meta property="og:image" content="http://media.giphy.com/media/h9sHcXAnI9OBG/giphy.gif"><link rel="shortcut icon" type="image/png" href="http://kud.io/favicon.png"><link rel="stylesheet" href="/index.css"></head><body><div class="kud-Banner"><script></script><a class="kud-Banner-link" href="/en/">Back to home</a></div><div class="kud-Wrapper"><section class="kud-Post kud-Text--wowLink animated fadeIn"><div class="kud-PostHeader"><span class="kud-PostHeader-decorator"><img class="kud-PostHeader-img" src="http://media.giphy.com/media/h9sHcXAnI9OBG/giphy.gif"></span><div class="kud-PostHeader-overlay"><div class="kud-PostHeader-wrapper"><h2 class="kud-PostHeader-heading" id="windows---could-not-find-this-item"><a class="kud-Anchor" href="#windows---could-not-find-this-item"><span></span></a><a href="">Windows - Could not find this item</a></h2><time class="kud-PostHeader-date hint--bottom" data-hint="5 years ago">Monday 27th April 2015</time></div></div></div><div class="kud-Post-content"><p>You&#x2019;re there, sitting on your chair, comfily and suddenly, you get this error.</p>
+<p><a href="/images/windows-could-not-find-this-item/bug.png"><img src="/images/windows-could-not-find-this-item/bug.png" alt="Could not find this item"></a></p>
+<p>At start, you don&#x2019;t mind about it and you click on &#x201C;try again&#x201D;. And oh! It works!</p>
+<p>Okay, cool. But now you have this error every fucking time you want to create a folder, or rename it or delete it. Quite boring, isn&#x2019;t it? Mostly that when you click on &#x201C;try again&#x201D;, it will work.</p>
+<p>So you&#x2019;ll go on Internet, find some <del>answers</del> like this <a href="http://answers.microsoft.com/en-us/windows/forum/windows_7-files/renaming-any-folder-produces-could-not-find-this/d907e1d0-648b-4b26-a377-c5116238f336">one</a> or maybe people will tell you to create a new profile but it&#x2019;s not your answer.</p>
+<p>So you go deeper in the internets and you&#x2019;ll find mine. Maybe it&#x2019;s the good one, maybe it&#x2019;s not, but in my case, it worked.</p>
+<p>This bug comes from two facts:</p>
+<ul>
+<li>A certain windows update I installed (I don&#x2019;t know which one)</li>
+<li>I disabled the &#x201C;Libraries&#x201D; feature</li>
+</ul>
+<p>The solution so?</p>
+<p>Re-active the libraries (and re-disable them if you want). Here are the two <code>.reg</code></p>
+<ul>
+<li><a href="/files/windows-could-not-find-this-item/EnableLibrariesFeature.reg">Enable Libraries Feature</a></li>
+<li><a href="/files/windows-could-not-find-this-item/DisableLibariesFeature.reg">Disable Libraries Feature</a></li>
+</ul>
+<p>Have a good day. :)</p>
+</div><div id="disqus_thread"></div><script>//- var disqus_config = function () {
+//-   this.page.url = PAGE_URL;
+//-   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+//- }
+
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//kuddiary.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();</script><noscript><p>No JavaScript, no comments.</p></noscript></section><div class="kud-Footer kud-Text--wowLink"><ul class="kud-Footer-list"><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://kud.io">Homepage</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://instagram.kud.io">Instagram</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://twitter.kud.io">Twitter</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="/fr/">Je parle fran&#xE7;ais</a></li></ul></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71841668-1', 'auto');
+ga('send', 'pageview');</script></body></html>

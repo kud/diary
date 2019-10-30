@@ -1,0 +1,68 @@
+<!DOCTYPE html><html class="post"><head><meta charset="utf-8"><title>_kud.diary &#x2014; How to avoid popup blockers when ajax + event</title><meta name="description" content="Diary of the _kud"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta property="og:title" content="How to avoid popup blockers when ajax + event"><meta property="og:image" content="http://media.giphy.com/media/JdDnwsVcpa1B6/giphy.gif"><link rel="shortcut icon" type="image/png" href="http://kud.io/favicon.png"><link rel="stylesheet" href="/index.css"></head><body><div class="kud-Banner"><script></script><a class="kud-Banner-link" href="/en/">Back to home</a></div><div class="kud-Wrapper"><section class="kud-Post kud-Text--wowLink animated fadeIn"><div class="kud-PostHeader"><span class="kud-PostHeader-decorator"><img class="kud-PostHeader-img" src="http://media.giphy.com/media/JdDnwsVcpa1B6/giphy.gif"></span><div class="kud-PostHeader-overlay"><div class="kud-PostHeader-wrapper"><h2 class="kud-PostHeader-heading" id="how-to-avoid-popup-blockers-when-ajax--event"><a class="kud-Anchor" href="#how-to-avoid-popup-blockers-when-ajax--event"><span></span></a><a href="">How to avoid popup blockers when ajax + event</a></h2><time class="kud-PostHeader-date hint--bottom" data-hint="5 years ago">Friday 3rd April 2015</time></div></div></div><div class="kud-Post-content"><p>Hey there,</p>
+<p>Today, I&#x2019;ll give you a little trick to avoid the popup blocker on browsers when you do an http request between your user event and opening the popup.</p>
+<p>You know how to open a <a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/open">popup</a>, it&#x2019;s quite simple:</p>
+<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">window</span>.open( strUrl, strWindowName, strWindowFeatures )
+})</code></pre>
+
+<p>Now, you want to open it when the user clicks on your button:</p>
+<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;.kud-js-MyButton&apos;</span>).addEventListener(<span class="hljs-string">&apos;click&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-built_in">window</span>.open( strUrl, strWindowName, strWindowFeatures )
+    })
+})</code></pre>
+
+<p>But before opening the popup, you maybe want to get some informations from the backend by doing an ajax request:</p>
+<p>(to ease the code, I use <a href="https://github.com/bloodyowl/request">bloody-request</a>)</p>
+<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;.kud-js-MyButton&apos;</span>).addEventListener(<span class="hljs-string">&apos;click&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+      bloodyRequest.get( url )
+        .then(
+          <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">success</span> (<span class="hljs-params"> res </span>) </span>{
+            <span class="hljs-built_in">window</span>.open( res.url , strWindowName, strWindowFeatures )
+          },
+          <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"></span>) </span>{}
+        )
+    })
+})</code></pre>
+
+<p>This is where you&#x2019;re doing it wrong.</p>
+<p>Indeed, because you make an ajax request between the event and the final &#x201C;window.open&#x201D;, the browser will cry and blocks your popup.</p>
+<p>The solution is to make the popup first and to change its location just after. Like that:</p>
+<pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&apos;.kud-js-MyButton&apos;</span>).addEventListener(<span class="hljs-string">&apos;click&apos;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+
+      <span class="hljs-keyword">var</span> popup = <span class="hljs-built_in">window</span>.open( strUrl, strWindowName, strWindowFeatures )
+
+      bloodyRequest.get( url )
+        .then(
+          <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">success</span> (<span class="hljs-params"> res </span>) </span>{
+            popup.location = res.url
+          },
+          <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">error</span>(<span class="hljs-params"></span>) </span>{
+            popup.close()
+          }
+        )
+    })
+})</code></pre>
+
+<p>Now, you&#x2019;ll be able to start your popup and use the result of your request ajax to adjust it.</p>
+<p>Enjoy.</p>
+</div><div id="disqus_thread"></div><script>//- var disqus_config = function () {
+//-   this.page.url = PAGE_URL;
+//-   this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+//- }
+
+(function() {
+    var d = document, s = d.createElement('script');
+    s.src = '//kuddiary.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();</script><noscript><p>No JavaScript, no comments.</p></noscript></section><div class="kud-Footer kud-Text--wowLink"><ul class="kud-Footer-list"><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://kud.io">Homepage</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://instagram.kud.io">Instagram</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://twitter.kud.io">Twitter</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="/fr/">Je parle fran&#xE7;ais</a></li></ul></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71841668-1', 'auto');
+ga('send', 'pageview');</script></body></html>
