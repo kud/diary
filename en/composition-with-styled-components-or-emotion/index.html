@@ -1,0 +1,53 @@
+<!DOCTYPE html><html class="post"><head><meta charset="utf-8"><title>_kud.diary &#x2014; Composition with styled-components or emotion</title><meta name="description" content="Diary of the _kud"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta property="og:title" content="Composition with styled-components or emotion"><meta property="og:image" content="http://www.gravatar.com/avatar/e6eaeaa6da69e804c27c2d4cd55107e0?s=500"><link rel="shortcut icon" type="image/png" href="http://kud.io/favicon.png"><link rel="stylesheet" href="/index.css"></head><body><div class="kud-Banner"><script></script><a class="kud-Banner-link" href="/en/">Back to home</a></div><div class="kud-Wrapper"><section class="kud-Post kud-Text--wowLink animated fadeIn"><div class="kud-PostHeader"><span class="kud-PostHeader-decorator"><img class="kud-PostHeader-img"></span><div class="kud-PostHeader-overlay"><div class="kud-PostHeader-wrapper"><h2 class="kud-PostHeader-heading" id="composition-with-styled-components-or-emotion"><a class="kud-Anchor" href="#composition-with-styled-components-or-emotion"><span></span></a><a href="">Composition with styled-components or emotion</a></h2><time class="kud-PostHeader-date hint--bottom" data-hint="12 hours ago">Sunday 3rd November 2019</time></div></div></div><div class="kud-Post-content"><p>When I use <a href="https://www.styled-components.com/">styled-components</a> or <a href="https://emotion.sh/">emotion</a>, it often happens that I want to extend more than only one component to another one. But I don&#x2019;t only want to extend, I also want to extend in certain situations directly via props. So I read lots of issues on <a href="https://www.styled-components.com/">styled-components</a>&#x2018; github page and I finally found a solution which I find great.</p>
+<p>Imagine this:</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">// MyElement.js</span>
+<span class="hljs-keyword">const</span> MyElement = styled.div<span class="hljs-string">``</span></code></pre>
+
+<p>Alright, you want know to extend it.</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">// Base.js</span>
+<span class="hljs-keyword">const</span> Base = styled.div<span class="hljs-string">``</span>
+
+<span class="hljs-comment">// MyElement.js</span>
+<span class="hljs-keyword">const</span> MyElement = styled(Base)<span class="hljs-string">``</span></code></pre>
+
+<p>Lovely.</p>
+<p>But now, you want to extend it by another one again. Ha! Tough right?</p>
+<p>The idea is to do that:</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">// base.js</span>
+<span class="hljs-keyword">const</span> base = css`<span class="css">`</span>
+
+<span class="hljs-comment">// anotherBase.js</span>
+<span class="hljs-keyword">const</span> anotherBase = css`<span class="css">`</span>
+
+<span class="hljs-comment">// MyElement.js</span>
+<span class="hljs-keyword">const</span> MyElement = styled.div<span class="hljs-string">`
+  <span class="hljs-subst">${base}</span>
+  <span class="hljs-subst">${anotherBase}</span>
+`</span></code></pre>
+
+<p>Boom! &#x1F4A5;</p>
+<p>Bonus: you could use it depending on certains props like:</p>
+<pre><code class="hljs javascript"><span class="hljs-comment">// base.js</span>
+<span class="hljs-keyword">const</span> base = css`<span class="css">`</span>
+
+<span class="hljs-comment">// anotherBase.js</span>
+<span class="hljs-keyword">const</span> anotherBase = css`<span class="css">`</span>
+
+<span class="hljs-comment">// MyElement.js</span>
+<span class="hljs-keyword">const</span> MyElement = styled.div<span class="hljs-string">`
+  <span class="hljs-subst">${base}</span>
+
+  <span class="hljs-subst">${({ active }</span>) =&gt; active &amp;&amp; css`</span>
+    ${anotherBase}
+  <span class="hljs-string">`}
+`</span></code></pre>
+
+<p>That&#x2019;s great, right?!</p>
+<p>If you have any other idea to extend it in a better way, feel free to <a href="http://twitter.kud.io">contact me on Twitter</a>. Thanks! Bye bye!</p>
+</div></section><div class="kud-Footer kud-Text--wowLink"><ul class="kud-Footer-list"><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://kud.io">Homepage</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://instagram.kud.io">Instagram</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="http://twitter.kud.io">Twitter</a></li><li class="kud-Footer-listItem"><a class="kud-Footer-listLink" href="/fr/">Je parle fran&#xE7;ais</a></li></ul></div></div><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-71841668-1', 'auto');
+ga('send', 'pageview');</script></body></html>
